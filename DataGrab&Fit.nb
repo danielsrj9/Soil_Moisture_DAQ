@@ -1,0 +1,503 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     20829,        493]
+NotebookOptionsPosition[     20015,        462]
+NotebookOutlinePosition[     20388,        478]
+CellTagsIndexPosition[     20345,        475]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"MoistData", " ", "=", " ", 
+    RowBox[{
+    "Import", "[", "\"\<D:\\\\Google Drive_Moist\\\\screenlog.0\>\"", "]"}]}],
+    " ", ";"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Imports", " ", "data", " ", "from", " ", "updated", " ", "google", " ", 
+    "drive", " ", "folder", " ", "on", " ", "desktop"}], " ", "*)"}], 
+  " "}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"MoistData", "[", 
+    RowBox[{"[", "1", "]"}], "]"}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Test", " ", "to", " ", "see", " ", "format", " ", "of", " ", "text", " ", 
+    "file"}], " ", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"Measurements", "=", 
+   RowBox[{
+    RowBox[{"Dimensions", "[", "MoistData", "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Determination", " ", "of", " ", "the", " ", "number", " ", "of", " ", 
+    "measurements", " ", "and", " ", "entries", " ", "in", " ", "screenlog", 
+    " ", "file"}], " ", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"MoistData", "[", 
+    RowBox[{"[", 
+     RowBox[{"1", ",", "3"}], "]"}], "]"}], ";"}], "  ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Test", " ", "of", " ", "what", " ", "position", " ", "the", " ", "soil", 
+    " ", "moisture", " ", "data", " ", "is"}], " ", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nlm", "=", 
+    RowBox[{"NonlinearModelFit", "[", 
+     RowBox[{
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"MoistData", "[", 
+         RowBox[{"[", 
+          RowBox[{"i", ",", "3"}], "]"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", "Measurements"}], "}"}]}], "]"}], ",", 
+      RowBox[{"a", "+", 
+       RowBox[{"b", "*", 
+        SuperscriptBox["x", "c"]}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"a", ",", "b", ",", "c"}], "}"}], ",", "x"}], "]"}]}], " ", 
+   ";"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "Nonlinear", " ", "fit", " ", "of", " ", "the", " ", "data", " ", "using",
+      " ", "a"}], " ", "+", " ", 
+    RowBox[{
+     SuperscriptBox["bx", "c"], " ", "as", " ", "the", " ", "fit", " ", 
+     "model"}]}], " ", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"DataFit", "=", 
+   RowBox[{"Normal", "[", "nlm", "]"}]}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Normalizing", " ", "the", " ", "model", " ", "output", " ", "to", " ", 
+    "use", " ", "in", " ", "the", " ", "plot", " ", "function"}], " ", 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"imageSize", " ", "=", " ", "800"}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Constant", " ", "for", " ", "the", " ", "size", " ", "of", " ", 
+    "generated", " ", "plots"}], " ", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"FittedData", "=", 
+    RowBox[{"Plot", "[", 
+     RowBox[{"DataFit", ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "0", ",", "Measurements"}], "}"}], ",", 
+      RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+      RowBox[{"FrameLabel", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Measurement (1 min step)\>\"", ",", 
+         "\"\<Relative Soil Moisture\>\""}], "}"}]}], ",", 
+      RowBox[{"ImageSize", "\[Rule]", "imageSize"}], ",", 
+      RowBox[{"Mesh", "\[Rule]", "Full"}], ",", 
+      RowBox[{"FrameStyle", "\[Rule]", "Black"}], ",", 
+      RowBox[{"BaseStyle", "\[Rule]", "16"}], ",", 
+      RowBox[{"PlotLabel", "\[Rule]", 
+       RowBox[{"Style", "[", 
+        RowBox[{
+        "\"\<Real-time & Historical Soil Moisture Content\>\"", ",", 
+         "Black"}], "]"}]}], ",", 
+      RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+      RowBox[{"Background", "\[Rule]", "LightGreen"}]}], "]"}]}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Independent", " ", "graph", " ", "for", " ", "the", " ", "model"}], " ", 
+   "*)"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DataListPlot", "=", 
+    RowBox[{"ListPlot", "[", 
+     RowBox[{
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"MoistData", "[", 
+         RowBox[{"[", 
+          RowBox[{"i", ",", "3"}], "]"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", "Measurements"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+      RowBox[{"FrameLabel", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Measurement (1 min step)\>\"", ",", 
+         "\"\<Relative Soil Moisture\>\""}], "}"}]}], ",", 
+      RowBox[{"ImageSize", "\[Rule]", "imageSize"}], ",", 
+      RowBox[{"Mesh", "\[Rule]", "Full"}], ",", 
+      RowBox[{"Joined", "\[Rule]", "False"}], ",", 
+      RowBox[{"FrameStyle", "\[Rule]", "Black"}], ",", 
+      RowBox[{"BaseStyle", "\[Rule]", "16"}], ",", 
+      RowBox[{"PlotLabel", "\[Rule]", 
+       RowBox[{"Style", "[", 
+        RowBox[{
+        "\"\<Real-time & Historical Soil Moisture Content\>\"", ",", 
+         "Black"}], "]"}]}], ",", 
+      RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+      RowBox[{"Background", "\[Rule]", "LightGreen"}], ",", 
+      RowBox[{"PlotMarkers", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"Automatic", ",", "10"}], "}"}]}]}], "]"}]}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Independent", " ", "graph", " ", "for", " ", "the", " ", "raw", " ", 
+    "data"}], " ", "*)"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SoilMoisturePlot", "=", 
+   RowBox[{"Show", "[", 
+    RowBox[{"{", 
+     RowBox[{"FittedData", ",", "DataListPlot"}], "}"}], "]"}]}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Combined", " ", "plot", " ", "of", " ", "the", " ", "raw", " ", "data", 
+    " ", "and", " ", "model"}], " ", "*)"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Export", "[", 
+    RowBox[{
+    "\"\<D:\\\\Google Drive_Moist\\\\SoilMoisturePlot.jpg\>\"", ",", 
+     "SoilMoisturePlot"}], "]"}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "Export", " ", "of", " ", "the", " ", "combined", " ", "graph", " ", "to",
+      " ", "the", " ", "google", " ", "drive", " ", "folder", " ", "on", " ", 
+     "the", " ", "desktop"}], ",", " ", 
+    RowBox[{
+    "which", " ", "is", " ", "rewritten", " ", "everytime", " ", "this", " ", 
+     "file", " ", "is", " ", "runned"}]}], " ", "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.6887054862573338`*^9, 3.6887055504527884`*^9}, {
+  3.6887060186632757`*^9, 3.6887060259587936`*^9}, {3.688707986429802*^9, 
+  3.688708297300264*^9}, {3.688708876526675*^9, 3.688708908727788*^9}, {
+  3.6887142282569494`*^9, 3.6887142313034673`*^9}, {3.688717356227124*^9, 
+  3.688717383338773*^9}, {3.688733191293091*^9, 3.688733204985753*^9}}],
+
+Cell[BoxData["291"], "Output",
+ CellChangeTimes->{
+  3.688708909312944*^9, 3.688709303142158*^9, 3.6887096476843615`*^9, {
+   3.6887173663147182`*^9, 3.6887173849187613`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"277.41014372028906`", "\[VeryThinSpace]", "+", 
+  RowBox[{"72.23382480233522`", " ", 
+   SuperscriptBox["x", "0.10515107841381277`"]}]}]], "Output",
+ CellChangeTimes->{
+  3.688708909312944*^9, 3.688709303142158*^9, 3.6887096476843615`*^9, {
+   3.6887173663147182`*^9, 3.6887173849337893`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{GraphicsComplexBox[CompressedData["
+1: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
+     "], {{{}, {}, 
+       {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], 
+        Opacity[1.], 
+        LineBox[{125, 73, 121, 106, 92, 63, 119, 104, 90, 78, 2, 109, 94, 171,
+          80, 67, 57, 118, 103, 89, 77, 51, 115, 100, 86, 74, 64, 168, 3, 110,
+          95, 81, 68, 58, 52, 116, 101, 87, 75, 65, 4, 111, 173, 96, 82, 69, 
+         59, 53, 5, 112, 97, 83, 169, 70, 60, 54, 6, 113, 98, 172, 84, 71, 61,
+          55, 7, 126, 8, 127, 128, 9, 10, 129, 130, 11, 12, 131, 13, 132, 14, 
+         133, 15, 134, 16, 135, 17, 136, 18, 137, 19, 138, 20, 139, 140, 21, 
+         141, 22, 23, 142, 143, 24, 144, 25, 26, 145, 27, 146, 28, 147, 148, 
+         29, 149, 30, 31, 150, 151, 32, 152, 33, 34, 153, 35, 154, 36, 155, 
+         37, 156, 38, 157, 39, 158, 40, 159, 41, 160, 42, 161, 162, 43, 44, 
+         163, 164, 45, 46, 165, 47, 166, 48, 167, 49, 114, 99, 85, 170, 72, 
+         62, 56, 117, 102, 88, 76, 66, 120, 105, 91, 79, 122, 107, 93, 123, 
+         108, 124, 50}]}}, {
+       {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], 
+        Opacity[1.], 
+        PointBox[{50, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 
+         137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150,
+          151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 
+         164, 165, 166, 167, 168, 169, 170, 171, 172, 
+         173}]}, {}, {}}}], {}}, {{}, {
+     {RGBColor[0.368417, 0.506779, 0.709798], AbsolutePointSize[6], 
+      AbsoluteThickness[1.6], GeometricTransformationBox[InsetBox[
+        StyleBox["\<\"\[FilledCircle]\"\>",
+         StripOnInput->False,
+         FontSize->10], {0., 0.}], CompressedData["
+1:eJztmPmLVXUYxq/aD2IQVlYGZZOKTCFiapra6NfGccZ99n05d5+7nzuWponc
+FpGgMFqIoh8mleqnFokQIrtlK2RpZRZE3GmRSINpUSra7u35fi6c+Rc695fD
+M+953ud93vc95879Xh/KtUanBAKBdZMDgUnla/liP+Or955tOTKrYbuxfzDT
+Th9063rBU80ht27a6XvB083YrhnPN94PnmHKaGzXIfBM01S54XXwNSZW+XwF
+rjEXavv3v/k2eLbwd+C55oYyPD8OnmfyZfmDgR0W15pz5XL3Xg6+0VxXMTAP
+PN+Uo2dbFoIXTMALla8ZfJPiDniRqYTdKHixKVdT2x8HL5H/PPhm+d0BXmoq
+5dceAi9Tfx4A3zIBL5feY+AV6vdB8ErN42vwrRPy15lKunIBFq8yd1UEDoNX
+m9aKwZfARvmPWVww6vcR4mvUn/eIr9H8jhK/Tf5PErf4d+L15sknyp8x4vXm
+v/06RXyt6j1DfK3mBw406P7zxBu0H+DAOrsfxNfJ30/EG1X/9DttvFHxSy0O
+NJnFlc8c4k3q/xXE12sfZhJfr/oWEN+g/i8hvkH9rCe+UfsJLmw0lfFNayS+
+SfU3E98kfw3EN0u/m/hm7Uua+BbtQ5L4Fu1fF/GtujrEt6re3cSbpTdgsWnW
+fAe5v1lX1+Jis+YVg98i/oPwW+Q3DL9F/U7At3gn/Fb1OwO/Vf3dA79Vz9s+
++K3Kvw1+m33/wLeY/IU29ftZ+G3q5yj8duV7BH67+vsofIufgt+ufX4ffofi
+L8PvUP9fgN8hv0/D7zDHPyh/voXfKf1P4HeqviPwO9XvZ+B3eusLdOn5fhh+
+l+b3IfwuXZ+D32XfL/C7vf5MtzlWbvf+w/C7NY9X4Herns/g96gf+DM9mtfj
+8HuU7wD8HvXnXfi9mg/9Mr16Xovwe6V3FH6v+vUq/D7t34/w+9Tvk/D7VM9H
+8Pvs+wp+v/y/Bb9f+t/D71f+U/D7lf8L+AO6/wT8Ac2vBH9A94/BH9Dz9yX8
+Qc2D/GZwgv9B1fsG/EHtD/UGhjT/j+EPKf+n8C3m/uKQ+vkOfMe7LzWO3kef
+k8/RFew43n4WHNV/3OJRx7vPRce+/y0uOXrf/oJ+UPn+QT+oK/03Qb1Pp+y0
++kF9H/yFflD9+BX9CfFiUP2ZbPmloPrxJ/oh7ecf6IdU7yR7vwmpX3/jP6R5
+EC+E9P4l/6i9/xKLiyHtA35KIe3bOfTDer4uoB/W/b/hP2y/T9EPq96f8W/5
+Z/AfVv+/wX9Y86zqh+V/rq0vENH8eH5qIvLzA/oR77yciPgX4T+i/b4B/xHV
+U/UfUf9n03+LL0M/qvlebHFN1OrS/6jq4X4nKv0Z6Eft/3/oT8DFqPZrGfpR
+vW+uQj+m520m+jFv3MR0Je7ENL/56MeUn/tHY5rfVPRj6h/+SjHNr+o/rnrn
+oB+foB/XfK5FP65+4a8QV79noR/XvJvQj6ueGvTj2qer0R+WH/pZM6z9vRL9
+YW99zrD8bkV/WPUsRt/mW4L+sPxU+2/zr0I/ofvXop/QPi1HPyE/7IOTUD0r
+0U/o/UW+0YT9/wn9hPpDvJTQPOrRT8rPavST3nwm6fXjJFX/UvSTylf1n9R+
+sh/FpPZ3BfqWvwf9lOZbh35Kz8ci9FPe/jop+anqp7RPIfTt/fgrprz9LKVs
+XvTTup9+1qTt7z30bTyMftr+XkI/rfdvO/pp9a8T/bS+7/ehn1a/yBfIaJ5t
+6GfUH/gmo35Qj5ORvot+Rv2OoJ9Rf6r6GX0fdKCfkT/6FcjKX1U/6/VrstJv
+RT8rP9X9z6reLehnta8F9LParyH0szYP+jnVtxn9nPxsQj+n/u5GP6d9GUA/
+p3r70Ldx8hVtPuZTyqn/29B3vXi6q+c1Rz2u9NMWL3Tt//PU5+r5uN3iZlf6
+d1CvjVO/69or9bveeT7kqt8H8OPq+/hui190te/34M+1vwcsPuFqviP4dTWf
+7RaP23zUH8hrX7P4zyv/Lvzn5TeI/7y3fpO35wP4z2v/YvjPe/fdzXv3tWDz
+DePf1gN/1PJT+M/r/U39xbz2awf+8+r3ffjPq5/0azyvfduL/xH7ewL/I/b3
+EP5HdP9r+B/Rfo/C98+L/PMi/7zIPy/yz4vE98+L/PMi/7zIPy/yz4uk758X
++edF/nmRf16Evn9e5J8X+edF/8fzon8BhepJ/g==
+       "]]}, {}}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{0, 360.},
+  Background->RGBColor[0.88, 1, 0.88],
+  BaseStyle->16,
+  DisplayFunction->Identity,
+  Frame->{{True, True}, {True, True}},
+  FrameLabel->{{
+     FormBox["\"Relative Soil Moisture\"", TraditionalForm], None}, {
+     FormBox["\"Measurement (1 min step)\"", TraditionalForm], None}},
+  FrameStyle->GrayLevel[0],
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{Automatic, Automatic},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  ImageSize->800,
+  Method->{
+   "DefaultBoundaryStyle" -> Automatic, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "ScalingFunctions" -> None},
+  PlotLabel->FormBox[
+    StyleBox["\"Real-time & Historical Soil Moisture Content\"", 
+     GrayLevel[0], StripOnInput -> False], TraditionalForm],
+  PlotRange->{{0, 291}, {359.35208651730954`, 408.57624665451647`}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.688708909312944*^9, 3.688709303142158*^9, 3.6887096476843615`*^9, {
+   3.6887173663147182`*^9, 3.688717385006794*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Export", "::", "nodir"}], "MessageName"], ":", 
+  " ", "\<\"Directory \[NoBreak]\\!\\(\\*RowBox[{\\\"\\\\\\\"D:\\\\\\\\\\\\\\\
+\\Google Drive_Moist\\\\\\\\\\\\\\\\\\\\\\\"\\\"}]\\)\[NoBreak] does not \
+exist. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/Export\\\", ButtonNote -> \
+\\\"Export::nodir\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.688717366805719*^9, 3.6887173851007996`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Export", "::", "noopen"}], "MessageName"], ":", 
+  " ", "\<\"Cannot open \[NoBreak]\\!\\(\\*RowBox[{\\\"\\\\\\\"D:\\\\\\\\\\\\\
+\\\\Google Drive_Moist\\\\\\\\\\\\\\\\SoilMoisturePlot.jpg\\\\\\\"\\\"}]\\)\
+\[NoBreak]. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/noopen\\\", ButtonNote -> \
+\\\"Export::noopen\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.688717366805719*^9, 3.688717385172803*^9}}]
+}, Open  ]],
+
+Cell["Prediction for When SM Content Is Dry", "Text",
+ CellChangeTimes->{{3.688708932714922*^9, 3.688708946475136*^9}},
+ FontSize->14],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DryTime", "=", 
+  RowBox[{"Solve", "[", 
+   RowBox[{
+    RowBox[{"DataFit", " ", "\[Equal]", " ", "430"}], ",", "x"}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.688708948990068*^9, 3.688708976026754*^9}, 
+   3.688709298266949*^9, {3.688709353107682*^9, 3.688709354904647*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Solve", "::", "ifun"}], "MessageName"], ":", 
+  " ", "\<\"Inverse functions are being used by \[NoBreak]\\!\\(\\*RowBox[{\\\
+\"Solve\\\"}]\\)\[NoBreak], so some solutions may not be found; use Reduce \
+for complete solution information. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/ifun\\\", \
+ButtonNote -> \\\"Solve::ifun\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.688709305282889*^9, 3.688709355264041*^9, 
+  3.6887096484159636`*^9, 3.688717395187351*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{"x", "\[Rule]", "1226.723704301541`"}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{3.688709305282889*^9, 3.688709355295291*^9, 
+  3.6887096484381*^9, 3.68871739519235*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<Time until soil needs to be watered: \>\"", ",", 
+   RowBox[{"N", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"DryTime", "[", 
+       RowBox[{"[", 
+        RowBox[{"1", ",", "1", ",", "2"}], "]"}], "]"}], "*", 
+      FractionBox["1", "60"]}], ",", "2"}], "]"}], ",", "\"\< hours\>\""}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.6887089671738234`*^9, 3.6887089681116705`*^9}, {
+  3.688709359404873*^9, 3.6887094704754057`*^9}, {3.6887102275958447`*^9, 
+  3.688710227711306*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Time until soil needs to be watered: \"\>", 
+   "\[InvisibleSpace]", "20.44539507169235`", 
+   "\[InvisibleSpace]", "\<\" hours\"\>"}],
+  SequenceForm[
+  "Time until soil needs to be watered: ", 20.44539507169235, " hours"],
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.6887094248168764`*^9, 3.6887094709910564`*^9}, 
+   3.6887096484537272`*^9, 3.688710233645788*^9, 3.688717396628435*^9}]
+}, Open  ]]
+},
+WindowSize->{1920, 997},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+Magnification:>1.2 Inherited,
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 6583, 173, 520, "Input"],
+Cell[7166, 197, 175, 3, 37, "Output"],
+Cell[7344, 202, 317, 6, 37, "Output"],
+Cell[7664, 210, 8912, 160, 652, "Output"],
+Cell[16579, 372, 527, 10, 26, "Message"],
+Cell[17109, 384, 550, 10, 26, "Message"]
+}, Open  ]],
+Cell[17674, 397, 134, 2, 35, "Text"],
+Cell[CellGroupData[{
+Cell[17833, 403, 303, 7, 84, "Input"],
+Cell[18139, 412, 610, 11, 84, "Message"],
+Cell[18752, 425, 228, 5, 84, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19017, 435, 534, 13, 84, "Input"],
+Cell[19554, 450, 445, 9, 84, "Print"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
